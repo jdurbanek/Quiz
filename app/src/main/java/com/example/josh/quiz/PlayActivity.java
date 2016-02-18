@@ -1,9 +1,10 @@
 package com.example.josh.quiz;
 
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PlayActivity extends AppCompatActivity {
+public class PlayActivity extends AppCompatActivity implements PlayFragment.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,5 +18,7 @@ public class PlayActivity extends AppCompatActivity {
                 .commit();
     }
 
+    public void onFragmentInteraction(Uri uri) {
 
+    }
 }

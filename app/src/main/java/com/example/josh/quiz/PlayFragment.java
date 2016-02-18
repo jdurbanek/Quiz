@@ -7,6 +7,7 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -32,6 +33,10 @@ public class PlayFragment extends Fragment {
     private CheckBox checkBoxOne;
     private CheckBox checkBoxTwo;
     private CheckBox checkBoxThree;
+    private Button submit;
+
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -79,6 +84,22 @@ public class PlayFragment extends Fragment {
 
 
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        //TA Implementation
+
+        //different way of implementing click interaction.
+        submit.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+            }
+        });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
