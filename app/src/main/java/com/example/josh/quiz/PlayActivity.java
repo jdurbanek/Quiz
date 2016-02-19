@@ -4,7 +4,8 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PlayActivity extends AppCompatActivity implements PlayFragment.OnFragmentInteractionListener{
+public class PlayActivity extends AppCompatActivity implements PlayFragment.OnFragmentInteractionListener,
+                                                    ImageFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,7 +14,7 @@ public class PlayActivity extends AppCompatActivity implements PlayFragment.OnFr
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, null))
+                .replace(R.id.main_fragment_container, ImageFragment.newInstance(null))
                 .addToBackStack(null)
                 .commit();
     }

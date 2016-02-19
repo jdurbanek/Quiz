@@ -27,15 +27,15 @@ public class PlayFragment extends Fragment {
     private static final String ARG_PARAM1 = "answerOne";
     private static final String ARG_PARAM2 = "answerTwo";
     private static final String ARG_PARAM3 = "answerThree";
-    //private static final String ARG_PARAM4 = "answerFour";
+    private static final String ARG_PARAM4 = "answerFour";
 
     private int points = 0;
-
+    private String imageQ = "Question Wrong";
     // TODO: Rename and change types of parameters
     private String answer1;
     private String answer2;
     private String answer3;
-    private String answer4;
+  //  private String answer4;
 
     private TextView question;
     private CheckBox checkBoxOne;
@@ -70,12 +70,13 @@ public class PlayFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
     public static PlayFragment newInstance(String answer1, String answer2, String answer3,
-                                           String answer4) {
+                                           String imageQ) {
         PlayFragment fragment = new PlayFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, answer1);
         args.putString(ARG_PARAM2, answer2);
         args.putString(ARG_PARAM3, answer3);
+        args.putString(ARG_PARAM4, imageQ);
         fragment.setArguments(args);
         return fragment;
     }
@@ -89,7 +90,7 @@ public class PlayFragment extends Fragment {
             answer1 = getArguments().getString(ARG_PARAM1);
             answer2 = getArguments().getString(ARG_PARAM2);
             answer3 = getArguments().getString(ARG_PARAM3);
-//            answer4 = getArguments().getString(ARG_PARAM4);
+            imageQ = getArguments().getString(ARG_PARAM4);
 
         }
     }
@@ -145,13 +146,13 @@ public class PlayFragment extends Fragment {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[0][0], null, null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[0][0], null, null, imageQ))
                             .commit();
                 } else if (answer2 == null) {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[0][1], null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[0][1], null, imageQ))
                             .commit();
                 } else {
                     answer3 = answers[0][2];
@@ -167,13 +168,13 @@ public class PlayFragment extends Fragment {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[1][0], null, null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[1][0], null, null,imageQ))
                             .commit();
                 } else if (answer2 == null) {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[1][1], null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[1][1], null, imageQ))
                             .commit();
                 } else {
                     answer3 = answers[1][2];
@@ -189,13 +190,13 @@ public class PlayFragment extends Fragment {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[2][0], null, null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[2][0], null, null, imageQ))
                             .commit();
                 } else if (answer2 == null) {
                     getFragmentManager()
                             .beginTransaction()
                             .addToBackStack(null)
-                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[2][1], null, null))
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[2][1], null, imageQ))
                             .commit();
                 } else {
                     answer3 = answers[2][2];
@@ -255,8 +256,11 @@ public class PlayFragment extends Fragment {
         if(answer3.equals("1848")) {
             points++;
         }
+        if(imageQ.equals("Mt. Everest")) {
+            points++;
+        }
 
-        String score = "You got " + points + " of 3 questions.";
+        String score = "You got " + points + " of 4 questions correct.";
         displayWinner(score);
 
     }
@@ -271,9 +275,10 @@ public class PlayFragment extends Fragment {
                 .setPositiveButton("Replay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        //pop back 3 to get to first question, initial fragment on stack
                         getFragmentManager().popBackStack();
                         getFragmentManager().popBackStack();
-                       // getFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
 
                     }
                 })
