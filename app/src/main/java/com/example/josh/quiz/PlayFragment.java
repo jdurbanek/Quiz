@@ -1,6 +1,8 @@
 package com.example.josh.quiz;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -22,19 +24,32 @@ import android.widget.TextView;
 public class PlayFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "answerOne";
+    private static final String ARG_PARAM2 = "answerTwo";
+    private static final String ARG_PARAM3 = "answerThree";
+    //private static final String ARG_PARAM4 = "answerFour";
+
+    private int points = 0;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String answer1;
+    private String answer2;
+    private String answer3;
+    private String answer4;
 
     private TextView question;
     private CheckBox checkBoxOne;
     private CheckBox checkBoxTwo;
     private CheckBox checkBoxThree;
-    private Button submit;
+  //  private Button submit;
 
+    //4 texted based quesitons
+    private String [] questions = {"Who was the third U.S President?", "Who has won the most Gold medals" +
+            "at the Olympics?", "When was the University of Wisconsin-Madison established?", "How many people" +
+            "signed the Constitution of the United States?"};
+
+    private String [][] answers = {{"Thomas Jefferson", "James Madison", "Andrew Jackson"},
+            {"Mark Spitz", "Michael Phelps", "Ray Ewry"},{"1940", "1890", "1848"},{"30", "45","39"}};
 
 
 
@@ -48,16 +63,19 @@ public class PlayFragment extends Fragment {
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
+     * @param answer1 Parameter 1.
+     * @param answer2 Parameter 2.
+     * @param answer3 Parameter 3.
      * @return A new instance of fragment PlayFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PlayFragment newInstance(String param1, String param2) {
+    public static PlayFragment newInstance(String answer1, String answer2, String answer3,
+                                           String answer4) {
         PlayFragment fragment = new PlayFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM1, answer1);
+        args.putString(ARG_PARAM2, answer2);
+        args.putString(ARG_PARAM3, answer3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -68,8 +86,11 @@ public class PlayFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            answer1 = getArguments().getString(ARG_PARAM1);
+            answer2 = getArguments().getString(ARG_PARAM2);
+            answer3 = getArguments().getString(ARG_PARAM3);
+//            answer4 = getArguments().getString(ARG_PARAM4);
+
         }
     }
 
@@ -79,8 +100,32 @@ public class PlayFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_play, container, false);
 
+        //set the widgets
+        checkBoxOne = (CheckBox)view.findViewById(R.id.checkBox);
+        checkBoxTwo = (CheckBox)view.findViewById(R.id.checkBox2);
+        checkBoxThree = (CheckBox)view.findViewById(R.id.checkBox3);
+      //  submit = (Button)view.findViewById(R.id.button2);
+        question = (TextView)view.findViewById(R.id.textView3);
         //set the checkboxes to display the possible answers.
-        checkBoxOne.setText("testing");
+        //checkBoxOne.setText("testing");
+
+        if(answer1 == null){
+            question.setText(questions[0]);
+            checkBoxOne.setText(answers[0][0]);
+            checkBoxTwo.setText(answers[0][1]);
+            checkBoxThree.setText(answers[0][2]);
+        }else if(answer2 == null){
+            question.setText(questions[1]);
+            checkBoxOne.setText(answers[1][0]);
+            checkBoxTwo.setText(answers[1][1]);
+            checkBoxThree.setText(answers[1][2]);
+        }else {
+            question.setText(questions[2]);
+            checkBoxOne.setText(answers[2][0]);
+            checkBoxTwo.setText(answers[2][1]);
+            checkBoxThree.setText(answers[2][2]);
+        }
+
 
 
         return view;
@@ -93,10 +138,69 @@ public class PlayFragment extends Fragment {
         //TA Implementation
 
         //different way of implementing click interaction.
-        submit.setOnClickListener(new View.OnClickListener(){
+        checkBoxOne.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
+                if (answer1 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[0][0], null, null, null))
+                            .commit();
+                } else if (answer2 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[0][1], null, null))
+                            .commit();
+                } else {
+                    answer3 = answers[0][2];
+                    determinePoints();
+                }
+            }
+        });
 
+        checkBoxTwo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (answer1 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[1][0], null, null, null))
+                            .commit();
+                } else if (answer2 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[1][1], null, null))
+                            .commit();
+                } else {
+                    answer3 = answers[1][2];
+                    determinePoints();
+                }
+            }
+        });
+
+        checkBoxThree.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (answer1 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answers[2][0], null, null, null))
+                            .commit();
+                } else if (answer2 == null) {
+                    getFragmentManager()
+                            .beginTransaction()
+                            .addToBackStack(null)
+                            .replace(R.id.main_fragment_container, PlayFragment.newInstance(answer1, answers[2][1], null, null))
+                            .commit();
+                } else {
+                    answer3 = answers[2][2];
+                    determinePoints();
+                }
             }
         });
 
@@ -139,5 +243,46 @@ public class PlayFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void determinePoints() {
+        if(answer1.equals("Thomas Jefferson")){
+            points++;
+        }
+        if(answer2.equals("Michael Phelps")) {
+            points++;
+        }
+        if(answer3.equals("1848")) {
+            points++;
+        }
+
+        String score = "You got " + points + " of 3 questions.";
+        displayWinner(score);
+
+    }
+
+    private void displayWinner(String score){
+
+        //do a prompt about the winner
+        new AlertDialog.Builder(getActivity())
+                .setCancelable(true)
+                .setTitle("Results")
+                .setMessage(points)
+                .setPositiveButton("Replay", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getFragmentManager().popBackStack();
+                        getFragmentManager().popBackStack();
+
+                    }
+                })
+                .setNegativeButton("Quit", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
+
     }
 }

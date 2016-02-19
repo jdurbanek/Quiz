@@ -13,11 +13,12 @@ public class PlayActivity extends AppCompatActivity implements PlayFragment.OnFr
 
         getFragmentManager()
                 .beginTransaction()
-                .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null))
+                .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, null))
                 .addToBackStack(null)
                 .commit();
     }
 
+    @Override
     public void onFragmentInteraction(Uri uri) {
 
     }
