@@ -87,13 +87,18 @@ public class ImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String text = editText.getText().toString().trim();
+                editText.setText("");
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, editText.getText().toString().trim()))
+                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, text))
                         .commit();
             }
         });
