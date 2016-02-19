@@ -267,12 +267,13 @@ public class PlayFragment extends Fragment {
         new AlertDialog.Builder(getActivity())
                 .setCancelable(true)
                 .setTitle("Results")
-                .setMessage(points)
+                .setMessage(score)
                 .setPositiveButton("Replay", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         getFragmentManager().popBackStack();
                         getFragmentManager().popBackStack();
+                       // getFragmentManager().popBackStack();
 
                     }
                 })
