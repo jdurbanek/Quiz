@@ -44,7 +44,7 @@ public class PlayFragment extends Fragment {
   //  private Button submit;
 
     //4 texted based quesitons
-    private String [] questions = {"Who was the third U.S President?", "Who has won the most Gold medals" +
+    private String [] questions = {"Who was the third U.S President?", "Who has won the most Gold medals " +
             "at the Olympics?", "When was the University of Wisconsin-Madison established?", "How many people" +
             "signed the Constitution of the United States?"};
 
@@ -256,7 +256,7 @@ public class PlayFragment extends Fragment {
         if(answer3.equals("1848")) {
             points++;
         }
-        if(imageQ.equals("Mt. Everest")) {
+        if(imageQ.equals("Mt. Everest") || imageQ.equals("Everest")) {
             points++;
         }
 

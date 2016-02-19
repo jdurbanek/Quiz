@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 /**
@@ -29,9 +30,9 @@ public class ImageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String answer;
 
-    private Button answer1;
-    private Button answer2;
-    private Button answer3;
+
+    private Button submit;
+    private EditText editText;
 
     private OnFragmentInteractionListener mListener;
 
@@ -71,13 +72,13 @@ public class ImageFragment extends Fragment {
         // Inflate the layout for this fragment
        View view = inflater.inflate(R.layout.fragment_image, container, false);
 
-        answer1 = (Button)view.findViewById(R.id.button2);
-        answer2 = (Button)view.findViewById(R.id.button3);
-        answer3 = (Button)view.findViewById(R.id.button4);
+        editText = (EditText)view.findViewById(R.id.editText);
+        submit = (Button)view.findViewById(R.id.button2);
 
-        answer3.setText("Himalayas");
-        answer2.setText("Mt. Everest");
-        answer1.setText("Mt. Fuji");
+
+        //answer3.setText("Himalayas");
+        //answer2.setText("Mt. Everest");
+        //answer1.setText("Mt. Fuji");
 
         return view;
     }
@@ -86,38 +87,17 @@ public class ImageFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        answer1.setOnClickListener(new View.OnClickListener() {
+        submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager()
                         .beginTransaction()
                         .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, "Mt. Fuji"))
+                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, editText.getText().toString().trim()))
                         .commit();
             }
         });
 
-        answer2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, "Mt. Everest"))
-                        .commit();
-            }
-        });
-
-        answer3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.main_fragment_container, PlayFragment.newInstance(null, null, null, "Himalayas"))
-                        .commit();
-            }
-        });
 
 
     }
